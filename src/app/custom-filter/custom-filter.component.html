@@ -1,0 +1,188 @@
+<!-- <pre>{{ filteredStudents$.value | json }}</pre> -->
+
+<div class="row">
+
+  <div class="col-sm-12">
+    <div class="panel panel-sm ">
+      <div class="panel-body">
+        <h5>Basic Info</h5>
+        <div class="hs-lead">
+          <div class="row">
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label for="exampleSelect1">Sex</label>
+                <div class="row">
+                  <div class="col-sm-9">
+                    <select class="form-control" [formControl]="sexFilterControl">
+                      <option *ngFor="let option of sexOptions" [ngValue]="option">
+                        {{ option }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-sm-3">
+                    <button class="btn btn-primary" *ngIf="sexFilterControl.value" (click)="sexFilterControl.setValue('')">
+                      Clear
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label for="exampleSelect1">Age</label>
+                <div class="row">
+                  <div class="col-sm-9">
+                    <div *ngFor="let opt of ageFilterControl.controls; let i=index">
+                      <input type="checkbox" [formControl]="$any(opt)"/>
+                      {{ageOptions[i].name}}
+                    </div>
+                  </div>
+                  <div class="col-sm-3">
+<!--                    <button class="btn btn-primary" *ngIf="ageFilterControl.value" (click)="ageFilterControl.setValue([])">-->
+<!--                      Clear-->
+<!--                    </button>-->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label for="exampleSelect1">ProgramCategory</label>
+                <div class="row">
+                  <div class="col-sm-9">
+                    <select class="form-control" [formControl]="programCategoryFilterControl">
+                      <option *ngFor="let option of programCategoryOptions" [ngValue]="option">
+                        {{ option }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-sm-3">
+                    <button class="btn btn-primary"
+                            *ngIf="programCategoryFilterControl.value"
+                            (click)="programCategoryFilterControl.setValue('')">
+                      Clear
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label for="exampleSelect1">ProgramStatus</label>
+                <div class="row">
+                  <div class="col-sm-9">
+                    <select class="form-control" [formControl]="programStatusFilterControl">
+                      <option *ngFor="let option of programStatusOptions" [ngValue]="option">
+                        {{ option }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-sm-3">
+                    <button class="btn btn-primary"
+                            *ngIf="programStatusFilterControl.value"
+                            (click)="programStatusFilterControl.setValue('')">
+                      Clear
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="exampleSelect1">courseCategory</label>
+                <div class="row">
+                  <div class="col-sm-9">
+                    <select  class="form-control" [formControl]="courseCategoryFilterControl">
+                      <option *ngFor="let option of courseCategoryOptions" [ngValue]="option">
+                        {{ option }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-sm-3">
+                    <button class="btn btn-primary"
+                            *ngIf="courseCategoryFilterControl.value"
+                            (click)="courseCategoryFilterControl.setValue('')">
+                      Clear
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="exampleSelect1">courseStatus</label>
+                <div class="row">
+                  <div class="col-sm-9">
+                    <select class="form-control" [formControl]="courseStatusFilterControl">
+                      <option *ngFor="let option of courseStatusOptions" [ngValue]="option">
+                        {{ option }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-sm-3">
+                    <button class="btn btn-primary"
+                            *ngIf="courseStatusFilterControl.value"
+                            (click)="courseStatusFilterControl.setValue('')">
+                      Clear
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-xl">
+      <div class="panel-body">
+        <h5>Result
+          <span class="badge badge-info badge-pill pull-right">{{ filteredStudents$.value.length }}</span>
+        </h5>
+        <div class="hs-lead">
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Sex</th>
+                <th>Programs</th>
+                <th>age</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let item of filteredStudents$.value ">
+                <td>{{item.StudentId }}</td>
+                <td>{{item.StudentName }}</td>
+                <td>{{item.Sex}}</td>
+                <td>
+                  {{item.Programs.length}}
+
+                  <ol *ngFor="let obj of item.Programs">
+                    <li>{{obj.ProgramCategory}} / {{obj.ProgramStatus}}</li>
+                  </ol>
+                </td>
+                <td>{{item.age}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
